@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
@@ -23,12 +24,9 @@ interface NotificationItem {
   createdAt: Date;
 }
 
-export function DropDownMessage({
-  notifications,
-  onClose,
-}: NotificationDropdownProps) {
+export function DropDownMessage({ onClose }: NotificationDropdownProps) {
   const [notification, setNotification] = useState<NotificationItem[]>([]);
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const receiverId = localStorage.getItem("userInfo");
   console.log("check 15 ", notification);
   // const [notifications, setNotifications] = useState([]);

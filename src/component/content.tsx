@@ -3,12 +3,8 @@
 
 import { useEffect, useState } from "react";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Comments } from "./comments";
 
 interface User {

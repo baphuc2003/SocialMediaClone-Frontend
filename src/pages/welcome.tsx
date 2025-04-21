@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { LoginPage } from "./login";
-import { useLocation, useNavigate } from "react-router-dom";
 
 export function Welcome() {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [previousPath, setPreviousPath] = useState("/");
 
   const [isLoginFormVisible, setLoginFormVisible] = useState(false); // Quản lý trạng thái form đăng nhập

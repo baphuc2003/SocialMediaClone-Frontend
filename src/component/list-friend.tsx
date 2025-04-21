@@ -43,7 +43,7 @@ export const ListFriend: FC<ListFriendProps> = ({ onUserClick }) => {
 
   return (
     <div className="list-friend">
-      {following.map((friend, index) => (
+      {following.map((friend) => (
         <div
           key={friend.id}
           className="friend-item cursor-pointer flex items-center  p-3  my-3 mx-2 rounded-xl hover:bg-[#5b708366] duration-200"

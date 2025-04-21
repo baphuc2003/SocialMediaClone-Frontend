@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { DropDownMessage } from "../component/drop-down-message";
 import { ListFriend } from "../component/list-friend";
 import { FormCreatePost } from "../component/form-create-post";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
 import { Content } from "../component/content";
 import { ChatBox } from "../component/chat-box";
 import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+
 interface FollowingUser {
   id: string;
   username: string;
@@ -23,15 +23,15 @@ interface SearchResult {
   name: string;
 }
 export function HomePage() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   const [isDropdownOpenMessage, setIsDropdownOpenMessage] = useState(false);
-  const [isOpenChat, setIsOpenChat] = useState(false);
+  // const [isOpenChat, setIsOpenChat] = useState(false);
   const [query, setQuery] = useState("");
   console.log("check query ", query);
   const [results, setResults] = useState<SearchResult[]>([]);
   console.log("check 29 ", results);
   const [showResults, setShowResults] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<string[]>([
+  const [notifications] = useState<string[]>([
     "Thông báo 1: Cập nhật hệ thống",
     "Thông báo 2: Tin nhắn mới từ bạn A",
     "Thông báo 3: Yêu cầu kết bạn",
@@ -62,7 +62,6 @@ export function HomePage() {
 
     try {
       const response = await authorizedAxiosInstance.get(
-        // "http://localhost:3000/api/elasticsearch/users"
         "https://socialmediaclone-backend-1.onrender.com/api/elasticsearch/users",
         { params: { q: searchTerm } }
       );

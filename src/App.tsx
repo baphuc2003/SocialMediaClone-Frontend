@@ -29,8 +29,8 @@ function App() {
     }
     return <Outlet />;
   };
-  const [socket, setSocket] = useState<Socket>();
-  const [notification, setNotification] = useState<{
+  const [, setSocket] = useState<Socket>();
+  const [, setNotification] = useState<{
     username: string;
     gender: string;
     image: string;

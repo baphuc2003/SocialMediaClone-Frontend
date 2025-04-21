@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface LoginPageProps {
@@ -12,7 +10,7 @@ interface LoginPageProps {
 
 export function LoginPage({ onClose }: LoginPageProps) {
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen] = useState(true);
   const [dataLogin, setDataLogin] = useState({
     email: "",
     password: "",
@@ -29,7 +27,6 @@ export function LoginPage({ onClose }: LoginPageProps) {
       },
     };
     const response = await authorizedAxiosInstance.post(
-      // "http://localhost:3000/api/user/login"
       "https://socialmediaclone-backend-1.onrender.com/api/user/login",
       userData
     );
