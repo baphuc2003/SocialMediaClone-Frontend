@@ -13,6 +13,7 @@ import { HomePage } from "./pages/home";
 import { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import { ProfilePage } from "./layout/profilePage";
+import { RegisterPage } from "./pages/registration";
 function App() {
   const AuthorizedRoute = () => {
     const userInfo = localStorage.getItem("userInfo");
@@ -64,20 +65,21 @@ function App() {
       {/* Định nghĩa Routes */}
       <BrowserRouter basename="/">
         <Routes>
-          {/* <Route path="/" element={<Navigate to="/login" replace={true} />} /> */}
+          <Route path="/" element={<Navigate to="/login" replace={true} />} />
           <Route path="/" element={<Welcome />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="user/phucba" element={<ProfilePage />} />
           </Route>
           <Route element={<AuthorizedRoute />}>
-            <Route path="/login" />
+            <Route path="/login" element={<Welcome />} />
+            <Route
+              path="/register"
+              element={<RegisterPage onClose={() => {}} />}
+            />
           </Route>
 
-          {/* <Route path="/login" element={<LoginPage />} /> */}
-          {/* <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<NotFoundPage />} /> */}
+          <Route path="*" element={<div>Không tìm thấy trang</div>} />
         </Routes>
       </BrowserRouter>
     </>

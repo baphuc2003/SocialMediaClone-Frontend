@@ -26,7 +26,7 @@ let refreshTokenPromise: Promise<axios.AxiosResponse<any, any>> | null = null;
 
 const refreshTokenAPI = async () => {
   return await authorizedAxiosInstance.post(
-    "http://localhost:3000/api/user/refresh-token"
+    "https://socialmediaclone-backend-1.onrender.com/api/user/refresh-token"
   );
 };
 
@@ -40,10 +40,29 @@ authorizedAxiosInstance.interceptors.response.use(
   async function (error) {
     console.log("check 41 ", error);
     if (error.response?.status === 401) {
+      // Kiểm tra nguyên nhân lỗi 401
+      const errorMessage = error.response?.data?.message || "";
       localStorage.removeItem("userInfo");
       await authorizedAxiosInstance.delete(
-        "http://localhost:3000/api/user/logout"
+        "https://socialmediaclone-backend-1.onrender.com/api/user/logout"
       );
+      if (
+        errorMessage.includes("Unauthenticated user") ||
+        errorMessage.includes("user not verified")
+      ) {
+        toast.error("Vui lòng xác thực email để tiếp tục.", {
+          autoClose: 2000,
+        });
+      } else {
+        toast.error("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.", {
+          autoClose: 2000,
+        });
+      }
+      setTimeout(() => {
+        location.href = "/login";
+      }, 2000);
+      // Unauthenticated user
+      return Promise.reject(error);
       // return (location.href = "/");
     }
 
@@ -56,27 +75,32 @@ authorizedAxiosInstance.interceptors.response.use(
       if (!refreshTokenPromise) {
         refreshTokenPromise = refreshTokenAPI()
           .catch(async (err) => {
-            console.log("chekc 58 ", err);
+            console.log("check refresh token error: ", err);
             await authorizedAxiosInstance.delete(
-              "http://localhost:3000/api/user/logout"
+              "https://socialmediaclone-backend-1.onrender.com/api/user/logout"
             );
-
-            // location.href = "/login";
+            toast.error("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.", {
+              autoClose: 2000,
+            });
+            setTimeout(() => {
+              location.href = "/login";
+            }, 2000);
             return Promise.reject(err);
           })
           .finally(() => {
             refreshTokenPromise = null;
           });
       }
+      return refreshTokenPromise.then(() => {
+        return authorizedAxiosInstance(originalRequest);
+      });
     }
-
     if (error.response?.status !== 410) {
       toast.error(
         error.response?.data?.message || error?.message || "Có lỗi xảy ra"
       );
     }
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+
     return Promise.reject(error);
   }
 );
