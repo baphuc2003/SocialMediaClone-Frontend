@@ -65,13 +65,14 @@ function App() {
       {/* Định nghĩa Routes */}
       <BrowserRouter basename="/">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace={true} />} />
-          <Route path="/" element={<Welcome />} />
+          {/* <Route path="/" element={<Navigate to="/login" replace={true} />} /> */}
+
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
             <Route path="user/phucba" element={<ProfilePage />} />
           </Route>
           <Route element={<AuthorizedRoute />}>
+            <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Welcome />} />
             <Route
               path="/register"

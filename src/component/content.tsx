@@ -231,7 +231,7 @@ export function Content() {
                       <div className="ico">
                         <i className="fa-solid fa-comment"></i>
                       </div>
-                      <div className="num">10</div>
+                      <div className="num">+</div>
                     </div>
 
                     <div className="share flex gap-1 cursor-pointer text-[#00A465]">
