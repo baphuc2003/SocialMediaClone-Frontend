@@ -23,7 +23,7 @@ export function RegisterPage({ onClose }: RegisterPageProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Cấu hình API endpoint cho local và production
-  const API_BASE_URL = "http://localhost:3000";
+  const API_BASE_URL = "https://socialmediaclone-backend-1.onrender.com";
   // process.env.NODE_ENV === "production"
   //   ? "https://socialmediaclone-backend-1.onrender.com"
   //   : "http://localhost:3000";
