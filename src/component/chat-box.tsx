@@ -39,7 +39,7 @@ export function ChatBox({ closeUserClick, friend }: ChatBoxProps) {
   useEffect(() => {
     const socket = io(`https://socialmediaclone-backend-1.onrender.com/`, {
       query: {
-        userId: localStorage.getItem("userInfo"),
+        userId: sessionStorage.getItem("userInfo"),
       },
     });
     setSocket(socket);
@@ -84,7 +84,7 @@ export function ChatBox({ closeUserClick, friend }: ChatBoxProps) {
         if (response.status == 200) {
           const messages = response.data?.data.map((msg: IChat) => ({
             ...msg,
-            isSender: msg.senderId === localStorage.getItem("userInfo"), // So sánh với userId hiện tại để xác định tin nhắn của ai
+            isSender: msg.senderId === sessionStorage.getItem("userInfo"), // So sánh với userId hiện tại để xác định tin nhắn của ai
           }));
           setValChats(messages);
           console.log("check 82 ", response);
@@ -101,7 +101,7 @@ export function ChatBox({ closeUserClick, friend }: ChatBoxProps) {
   const handleSendMessage = () => {
     if (socket && friend) {
       socket.emit("sendMessage", {
-        senderId: localStorage.getItem("userInfo"),
+        senderId: sessionStorage.getItem("userInfo"),
         receiverId: friend.id,
         content: valChat.content,
         created_at: valChat.created_at,
