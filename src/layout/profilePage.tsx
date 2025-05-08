@@ -67,7 +67,7 @@ export function ProfilePage() {
       }
     };
 
-    const userInfo = localStorage.getItem("userInfo") || "";
+    const userInfo = sessionStorage.getItem("userInfo") || "";
     if (userInfo) setCurrentUserId(userInfo);
 
     if (username) {
