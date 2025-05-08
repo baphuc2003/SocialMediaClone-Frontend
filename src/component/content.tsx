@@ -234,7 +234,7 @@ export function Content() {
                       <div className="num">+</div>
                     </div>
 
-                    <div className="share flex gap-1 cursor-pointer text-[#00A465]">
+                    {/* <div className="share flex gap-1 cursor-pointer text-[#00A465]">
                       <div className="ico">
                         <i className="fa-solid fa-share"></i>
                       </div>
@@ -246,7 +246,7 @@ export function Content() {
                         <i className="fa-solid fa-chart-simple"></i>
                       </div>
                       <div className="num">{post.userView}</div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

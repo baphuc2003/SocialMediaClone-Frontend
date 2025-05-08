@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
 import { Content } from "../component/content";
 import { ChatBox } from "../component/chat-box";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FollowingUser {
   id: string;
@@ -26,6 +26,7 @@ export function HomePage() {
   // const [user, setUser] = useState(null);
   const [isDropdownOpenMessage, setIsDropdownOpenMessage] = useState(false);
   // const [isOpenChat, setIsOpenChat] = useState(false);
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   console.log("check query ", query);
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -88,13 +89,30 @@ export function HomePage() {
     }, 300);
   };
 
+  const handleClickUser = (username: string) => {
+    navigate(`/user/${username}`);
+    setShowResults(false); // Đóng danh sách kết quả sau khi click
+  };
+
+  const handleLogout = async () => {
+    // Xoá thông tin đăng nhập khỏi localStorage
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userInfo");
+    const res = await authorizedAxiosInstance.delete(
+      "https://socialmediaclone-backend-1.onrender.com/api/user/logout"
+    );
+    console.log("check res logout ", res);
+    // Chuyển hướng về trang đăng nhập
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="container min-w-full bg-black_#000000 ">
         <div className="wrap flex text-white_#f0f8ff">
           <div className="left basis-[25%] min-h-screen border-r border-[#2f3336] fixed top-0 left-0 w-[25%]">
             <div className="col flex flex-col">
-              <div className="logo mx-3 py-2 flex items-center gap-3">
+              <div className="logo mx-3 py-2 flex items-center gap-3 border-b border-[#2f3336]">
                 <div className="">
                   <img
                     src="https://social-network-clone.s3.ap-southeast-1.amazonaws.com/logoSocial.jpeg"
@@ -117,6 +135,7 @@ export function HomePage() {
                           <li
                             key={item.id}
                             className="px-3 py-2 text-[#e2e5e9] hover:bg-gray-700 cursor-pointer"
+                            onClick={() => handleClickUser(item.name)}
                           >
                             {item.name}
                           </li>
@@ -129,14 +148,14 @@ export function HomePage() {
 
               <div className="gr_item mx-3">
                 <nav className="flex flex-col">
-                  <a href="#" className="w-full group">
+                  {/* <a href="#" className="w-full group">
                     <div className="item inline-block group-hover:bg-[#5b708366] transition duration-300 rounded-full">
                       <div className="flex items-center p-3">
                         <div className="icon w-6 h-6">
                           <i className="fa-solid fa-user-group"></i>
                         </div>
                         <div className="mx-5">
-                          <span>Bạn bè</span>
+                          <span>Đang theo dõi</span>
                         </div>
                       </div>
                     </div>
@@ -166,9 +185,12 @@ export function HomePage() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </a> */}
 
-                  <Link to="/user/phucba" className="w-full group">
+                  <Link
+                    to={`/user/${localStorage.getItem("userName")}`}
+                    className="w-full group"
+                  >
                     <div className="item inline-block group-hover:bg-[#5b708366] transition duration-300 rounded-full">
                       <div className="flex items-center p-3">
                         <div className="icon w-6 h-6">
@@ -184,13 +206,12 @@ export function HomePage() {
               </div>
 
               <div className="btnPost mt-10">
-                {/* <button className="px-8 py-5 bg-[#1d9bf0]">Đăng bài</button> */}
-                <a
-                  href=""
-                  className="bg-[#1d9bf0] ml-3 px-10 py-4 rounded-full hover:bg-[#5b708366] hover:text-[#F3453F] transition duration-300 "
+                <button
+                  onClick={handleLogout}
+                  className="bg-[#1d9bf0] ml-3 px-10 py-4 rounded-full hover:bg-[#5b708366] hover:text-[#F3453F] transition duration-300"
                 >
-                  <span>Đăng bài</span>
-                </a>
+                  <span>Đăng xuất</span>
+                </button>
               </div>
             </div>
           </div>
@@ -213,7 +234,7 @@ export function HomePage() {
                 ></i>
 
                 {/* Số lượng thông báo */}
-                <div className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center transform translate-x-1/2 -translate-y-1/2">
+                <div className="absolute top-0 right-2 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center transform translate-x-1/2 -translate-y-1/2">
                   {/* {notificationCount} */}
                 </div>
               </div>
@@ -224,15 +245,15 @@ export function HomePage() {
                   onClose={() => setIsDropdownOpenMessage(false)}
                 />
               )}
-              <div className="relative">
+              {/* <div className="relative">
                 <i className="fa-solid fa-user p-3 rounded-full bg-[#202327] cursor-pointer"></i>
-              </div>
+              </div> */}
             </div>
 
             <div className="b">
               <div className="">
                 <span className="text-white_#f0f8ff text-xl ml-2">
-                  Người liên hệ
+                  Đang theo dõi
                 </span>
               </div>
               <ListFriend onUserClick={openChatBox} />

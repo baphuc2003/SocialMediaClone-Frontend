@@ -125,19 +125,24 @@ export function ChatBox({ closeUserClick, friend }: ChatBoxProps) {
   return (
     <>
       <div className="chat-box p-3 fixed w-[25%] bottom-0">
-        <div className="box border-[1px] rounded-lg">
+        <div className="box border-[1px] rounded-lg bg-[#242526]">
           <div className="head-box flex justify-between px-3 py-2 border-b-[1px]">
             <div className="info flex gap-2 items-center">
               <div className="ava w-8 h-8 ">
                 <img
-                  src="https://social-network-clone.s3.ap-southeast-1.amazonaws.com/logoSocial.jpeg"
+                  src={
+                    friend?.image ||
+                    "https://social-network-clone.s3.ap-southeast-1.amazonaws.com/avatar-macdinh.jpg"
+                  }
                   alt=""
                   className="rounded-full"
                 />
               </div>
 
               <div className="name">
-                <span className="text-[#e2e5e9] font-semibold">ba phuc</span>
+                <span className="text-[#e2e5e9] font-semibold">
+                  {friend?.username}
+                </span>
               </div>
             </div>
 

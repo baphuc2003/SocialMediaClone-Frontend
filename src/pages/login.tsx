@@ -15,9 +15,11 @@ export function LoginPage({ onClose }: LoginPageProps) {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     const { email, password } = dataLogin;
 
     const userData = {
@@ -33,7 +35,8 @@ export function LoginPage({ onClose }: LoginPageProps) {
     console.log("check 27 ", response);
 
     if (response.status === 200 || response.status === 201) {
-      localStorage.setItem("userInfo", response.data.data?.userId);
+      sessionStorage.setItem("userInfo", response.data.data?.userId);
+      sessionStorage.setItem("userName", response.data.data?.username);
       navigate("/home");
     }
   };
@@ -101,10 +104,11 @@ export function LoginPage({ onClose }: LoginPageProps) {
                   />
                 </label>
                 <button
+                  disabled={isLoading}
                   onClick={handleLogin}
                   className="bg-blue-500 text-white px-4 py-2 rounded-3xl w-full hover:bg-red-400 transition-colors duration-300"
                 >
-                  Đăng nhập
+                  {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
                 </button>
               </form>
 

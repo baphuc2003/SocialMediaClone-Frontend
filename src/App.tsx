@@ -16,7 +16,7 @@ import { ProfilePage } from "./layout/profilePage";
 import { RegisterPage } from "./pages/registration";
 function App() {
   const AuthorizedRoute = () => {
-    const userInfo = localStorage.getItem("userInfo");
+    const userInfo = sessionStorage.getItem("userInfo");
     if (userInfo) {
       return <Navigate to="/home" replace={true} />;
     }
@@ -24,7 +24,7 @@ function App() {
   };
 
   const ProtectedRoute = () => {
-    const userInfo = localStorage.getItem("userInfo");
+    const userInfo = sessionStorage.getItem("userInfo");
     if (!userInfo) {
       return <Navigate to="/" replace={true} />;
     }
@@ -69,7 +69,7 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<HomePage />} />
-            <Route path="user/phucba" element={<ProfilePage />} />
+            <Route path="user/:username" element={<ProfilePage />} />
           </Route>
           <Route element={<AuthorizedRoute />}>
             <Route path="/" element={<Welcome />} />

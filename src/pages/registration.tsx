@@ -190,14 +190,14 @@ export function RegisterPage({ onClose }: RegisterPageProps) {
                 </button>
               </form>
 
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <a href="#">
                   <span className="text-[#1d9bf0]">Quên mật khẩu</span>
                 </a>
                 <a href="#">
                   <span className="text-[#1d9bf0]">Đăng nhập</span>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

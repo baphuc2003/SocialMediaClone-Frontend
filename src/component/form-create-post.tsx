@@ -157,12 +157,12 @@ export function FormCreatePost() {
                     onChange={handleFileChange}
                   />
                 </div>
-                <div className="flex justify-center items-center w-7 h-7 rounded-full hover:bg-[#787a7a] duration-300">
+                {/* <div className="flex justify-center items-center w-7 h-7 rounded-full hover:bg-[#787a7a] duration-300">
                   <i className="fa-solid fa-file items-center text-[#1d9bf0]"></i>
                 </div>
                 <div className="flex justify-center items-center w-7 h-7 rounded-full hover:bg-[#787a7a] duration-300">
                   <i className="fa-solid fa-face-smile items-center text-[#1d9bf0]"></i>
-                </div>
+                </div> */}
               </div>
               <div className="btn_post basic-[30%] w-full flex justify-end">
                 <button
