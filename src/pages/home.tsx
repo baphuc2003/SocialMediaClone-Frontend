@@ -188,7 +188,7 @@ export function HomePage() {
                   </a> */}
 
                   <Link
-                    to={`/user/${localStorage.getItem("userName")}`}
+                    to={`/user/${sessionStorage.getItem("userName")}`}
                     className="w-full group"
                   >
                     <div className="item inline-block group-hover:bg-[#5b708366] transition duration-300 rounded-full">
